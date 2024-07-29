@@ -4,9 +4,9 @@ public class RunnableMain {
 	
 	public static void main(String[] args) {
 		
-		Runnable r = ()->
-			System.out.println("Hi");
-			Thread t = new Thread(r);
-			t.run();		
+		Runnable r =()->
+		System.out.println("Hello");
+		Thread t = new Thread(r);
+		t.run();
 	}
 }

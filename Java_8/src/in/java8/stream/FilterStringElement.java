@@ -1,9 +1,10 @@
-package in.java8.removeifmethod;
+package in.java8.stream;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
-public class RemoveIfMain {
-	
+public class FilterStringElement {
+
 	public static void main(String[] args) {
 		
 		ArrayList<String> list = new ArrayList<>();
@@ -14,9 +15,7 @@ public class RemoveIfMain {
 		list.add("Shubham");
 		list.add("Raj");
 		
-		list.removeIf(s->s.startsWith("S"));
-		System.out.println(list);
-		
+		System.out.println(list.stream().filter(f->f.startsWith("S")).collect(Collectors.toList()));
+				
 	}
-
 }
