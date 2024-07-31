@@ -34,5 +34,23 @@ public class Employee {
 		this.empSalary = empSalary;
 	}
 	
+	@Override
+	public int hashCode() {
+		return empId;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		
+		Employee e = (Employee)obj;
+		if(this.getEmpId() == e.getEmpId()) {
+			return true;
+		}else {
+			return false;
+		} 
+		
+	}
+	
+	
 	
 }
