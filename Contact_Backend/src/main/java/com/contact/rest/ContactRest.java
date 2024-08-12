@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.contact.entity.Contact;
+import com.contact.exception.ContactExceptionHandler;
+import com.contact.exception.CustomException;
 import com.contact.service.ContactService;
 
 @RestController
@@ -21,9 +23,24 @@ public class ContactRest {
 	private ContactService service;
 	
 	@PostMapping("/saveContact")
-	ResponseEntity<Contact> saveContact(@RequestBody Contact contact){
-		Contact saveContact = service.saveContact(contact);
-		return new ResponseEntity<>(saveContact,HttpStatus.CREATED);
+	ResponseEntity<Object> saveContact(@RequestBody Contact contact) throws CustomException{
+		try {
+			//String s = null;
+			//System.out.println(s.length());
+			if (contact.getCname() != null && contact.getCemail() != null && contact.getCnumber() != null) {
+				Contact saveContact = service.saveContact(contact);
+				return new ResponseEntity<>(saveContact,HttpStatus.CREATED);
+			}
+			else {
+				throw new CustomException("Enter All Mandatory Fields");
+			}	
+		}catch (CustomException e) {
+			ContactExceptionHandler errorResponse = new ContactExceptionHandler();
+		     return new ResponseEntity<>(errorResponse.nullException(e), HttpStatus.BAD_REQUEST);
+		}catch(Exception e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+				
 	}
 	
 	@GetMapping("/getAllContacts")

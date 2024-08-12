@@ -43,6 +43,7 @@ public class ContactServiceImpl implements ContactService{
 	@Override
 	public Contact updateContact(Contact contact) {
 		if(repo.existsById(contact.getCid())) {
+			contact.setStatus("Active");
 			Contact save = repo.save(contact);
 				return save;
 		}

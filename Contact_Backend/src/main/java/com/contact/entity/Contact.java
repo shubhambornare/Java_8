@@ -1,11 +1,17 @@
 package com.contact.entity;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Contact")
@@ -20,13 +26,30 @@ public class Contact {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)  
 	@Column(name = "Contact_ID")
 	private Integer cid;
+	
+	@NotEmpty(message ="Please Enter Name")
 	@Column(name = "Contact_Name")
 	private String cname;
+	
+	@NotEmpty(message ="Please Enter Email")
 	@Column(name = "Contact_Email")
 	private String cemail;
+	
+	@NotNull(message ="Please Enter Contact Number")
 	@Column(name = "Contact_Number")
 	private Long cnumber;
-	private String status ="Active";
+	
+	@Column(name = "Contact_Status")
+	private String status;
+	
+	@Column(name = "Local_Date", updatable = false)
+	@CreationTimestamp
+	private LocalDateTime localDate;
+	
+	@Column(name = "Update_Date", insertable = false)
+	@UpdateTimestamp
+	private LocalDateTime updateDate;
+	
 	public Integer getCid() {
 		return cid;
 	}
